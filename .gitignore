@@ -1,0 +1,6 @@
+venv/
+.env
+atlas-credentials.env
+__pycache__/
+*.pyc
+uploads/*

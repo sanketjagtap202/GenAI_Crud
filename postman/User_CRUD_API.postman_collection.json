@@ -1,0 +1,54 @@
+{
+  "info": {
+    "name": "FastAPI User CRUD API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    {"key": "base_url", "value": "http://127.0.0.1:8000"},
+    {"key": "user_id", "value": ""}
+  ],
+  "item": [
+    {
+      "name": "Health Check",
+      "request": {"method": "GET", "url": "{{base_url}}/health"}
+    },
+    {
+      "name": "Create User",
+      "event": [{"listen": "test", "script": {"exec": ["const json = pm.response.json();", "pm.collectionVariables.set('user_id', json.id);"]}}],
+      "request": {
+        "method": "POST",
+        "header": [{"key": "Content-Type", "value": "application/json"}],
+        "body": {"mode": "raw", "raw": "{\n  \"user_name\": \"Rahul Sharma\",\n  \"address\": \"Pune, Maharashtra\",\n  \"employee_id\": \"EMP1001\",\n  \"salary\": 65000,\n  \"gender\": \"Male\",\n  \"joining_date\": \"2025-01-15\",\n  \"active_status\": true\n}"},
+        "url": "{{base_url}}/api/users"
+      }
+    },
+    {"name": "Get Users", "request": {"method": "GET", "url": "{{base_url}}/api/users"}},
+    {"name": "Get User", "request": {"method": "GET", "url": "{{base_url}}/api/users/{{user_id}}"}},
+    {
+      "name": "Update User",
+      "request": {
+        "method": "PUT",
+        "header": [{"key": "Content-Type", "value": "application/json"}],
+        "body": {"mode": "raw", "raw": "{\n  \"user_name\": \"Rahul Sharma Updated\",\n  \"salary\": 70000,\n  \"active_status\": true\n}"},
+        "url": "{{base_url}}/api/users/{{user_id}}"
+      }
+    },
+    {
+      "name": "Upload Profile Photo",
+      "request": {
+        "method": "POST",
+        "body": {"mode": "formdata", "formdata": [{"key": "file", "type": "file", "src": ""}]},
+        "url": "{{base_url}}/api/users/{{user_id}}/profile-photo"
+      }
+    },
+    {
+      "name": "Update Profile Photo",
+      "request": {
+        "method": "PUT",
+        "body": {"mode": "formdata", "formdata": [{"key": "file", "type": "file", "src": ""}]},
+        "url": "{{base_url}}/api/users/{{user_id}}/profile-photo"
+      }
+    },
+    {"name": "Delete User", "request": {"method": "DELETE", "url": "{{base_url}}/api/users/{{user_id}}"}}
+  ]
+}
